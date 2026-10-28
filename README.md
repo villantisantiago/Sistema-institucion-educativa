@@ -1,24 +1,24 @@
 # Sistema-institucion-educativa
 Sistema de gestión de una institución educativa.
 
-El sistema está destinado a una universidad. Unifica en una única base de datos la información académica, administrativa y de personal, para que sea accesible y la institución se organice mejor.
+El sistema está destinado a una universidad. Unifica en una base de datos la información académica, administrativa, personal y contable, para una mejor accesibilidad y mejor organización en la institucion.
 
 ### Actores
 * Alumnos: cursan materias y reciben notas.
 * Profesores: dictan materias y cargan notas.
 * Directivos: gestionan y supervisan la institución, y consultan estadísticas.
-* Personal de mantenimiento: se ocupa de la infraestructura y las instalaciones.
-* Personal de seguridad: controla el acceso y la seguridad de los edificios.
-  
+* Personal: Hay de administración, que se encarga del sector contable manejando sueldos y cuenta corriente ademas de gestionar legajos, inscripciones y carga de datos de alumnos y empleados, personal de  mantenimiento, que se ocupa de la infraestructura y las instalaciones, y personal de seguridad, que controla el acceso y la seguridad de los edificios.
+
 ### Información que se necesita almacenar
 * Alumno: legajo, DNI, nombre y apellido, fecha de nacimiento, contacto, mail, carrera, fecha de ingreso, estado.
-* Profesor: DNI, nombre y apellido, contacto, título, fecha de ingreso.
-* Directivo: DNI, nombre y apellido, cargo, área.
-* Personal (mantenimiento y seguridad): DNI, nombre y apellido, área, turno, fecha de ingreso.
+* Profesor: DNI, nombre, apellido, contacto, título, fecha de ingreso, materias.
+* Directivo: DNI, nombre, apellido, cargo, área.
+* Personal (mantenimiento, seguridad y administrativo): DNI, nombre y apellido, turno, fecha de ingreso, teléfono, sueldo, tipo, cargo.
 * Carrera: código, nombre, duración.
 * Materia: código, nombre, carga horaria, cuatrimestre, carrera.
-* Cursada: alumno, materia, año/cuatrimestre, estado (cursando, aprobada, desaprobada, libre).
+* Cursada: alumno, materia, cuatrimestre, estado (cursando, aprobada, desaprobada, libre), nota.
 * Nota: cursada, tipo de instancia (parcial, recuperatorio, final), valor, fecha.
+* Fichaje: Fecha, hora ingreso, comienzo, 
 
 ### Reglas de negocio
 1. Cada alumno tiene un legajo único.
@@ -28,6 +28,9 @@ El sistema está destinado a una universidad. Unifica en una única base de dato
 5. Un alumno no puede cursar una materia si no aprobó sus correlativas.
 6. Solo los profesores asignados a una materia pueden cargar notas en ella.
 7. Una persona tiene un único rol principal (alumno, profesor, directivo o personal).
+8. Un profesor puede dictar la misma materia varias veces por día y varios días por semana.
+9. Un profesor no puede tener 2 clases que se superpongan el mismo día y horario.
+10. Cada profesor tiene como máximo 48 horas de clases trabajadas por semana.
 
 ### Procesos principales
 * Alta, baja y modificación de alumnos, profesores, directivos y personal.
@@ -36,11 +39,12 @@ El sistema está destinado a una universidad. Unifica en una única base de dato
 * Consulta del historial académico de un alumno.
 * Asignación de profesores a materias.
 * Generación de estadísticas: cantidad de alumnos, profesores, directivos y personal, y promedios por materia.
+* Administración de sueldos, legajos e inscripciones.
 
 ### Restricciones del sistema
 * Los DNI y los legajos no pueden repetirse.
 * Los directivos pueden consultar toda la información.
-* Los profesores solo editan notas de sus materias.
+* Los profesores solo editan notas de las materias que dictan.
 * Los alumnos solo consultan sus propios datos.
 * Debe mantenerse la integridad referencial entre todas las tablas.
 
