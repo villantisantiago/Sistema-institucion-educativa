@@ -59,3 +59,29 @@ El sistema está destinado a una universidad. Unifica en una base de datos la in
 | Materia | es correlativa de | Materia | N:M | Tabla **Correlativa** (`id_materia`, `id_materia_correlativa`) |
 | Directivo | está a cargo de | Área | N:1 | `id_area` como FK en Directivo |
 | Personal (mantenimiento y seguridad) | pertenece a | Área | N:1 | `id_area` como FK en Personal |
+
+### Normalizacion
+* Ejemplos de dependencias funcionales:
+  #### Alumno
+  * Legajo ==> dni, nombre, apellido, teléfono y mail (Porque el legajo esta relacionado a un unico alumno)
+  * Claves candidatas: legajo (Elegida como PK), dni, mail.
+  #### Cursada
+  * Id_Cursada ==> legajo, id_cuatrimestre, id_materia, estado.
+  * Clave candidata: Id_Cursada
+* Primera forma normal
+  * Sin la forma normal cada alumno tendría una sola fila con listas: varias carreras, materias y notas separadas por coma. Para realizar la entidad alumno se usaron valores atómicos y se uso una fila por cada alumno. La clave paso a ser (legajo, id_carrera, id_materia, id_cuatrimestre)
+* Segunda forma normal
+  * Para cumplir con la segunda forma normal 
+
+
+
+
+
+
+
+
+
+
+
+
+
