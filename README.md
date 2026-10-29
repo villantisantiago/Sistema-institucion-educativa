@@ -11,14 +11,14 @@ El sistema está destinado a una universidad. Unifica en una única base de dato
 * Personal de seguridad: controla el acceso y la seguridad de los edificios.
   
 ### Información que se necesita almacenar
-* Alumno: legajo, DNI, nombre y apellido, fecha de nacimiento, contacto, mail, carrera, fecha de ingreso, estado.
-* Profesor: DNI, nombre y apellido, contacto, título, fecha de ingreso.
-* Directivo: DNI, nombre y apellido, cargo, área.
-* Personal (mantenimiento y seguridad): DNI, nombre y apellido, área, turno, fecha de ingreso.
-* Carrera: código, nombre, duración.
-* Materia: código, nombre, carga horaria, cuatrimestre, carrera.
-* Cursada: alumno, materia, año/cuatrimestre, estado (cursando, aprobada, desaprobada, libre).
-* Nota: cursada, tipo de instancia (parcial, recuperatorio, final), valor, fecha.
+* Alumno: legajo, DNI, nombre y apellido, fecha de nacimiento, contacto, mail, carrera, fecha de ingreso y estado.
+* Personal (mantenimiento, seguridad, directivos y docentes): idEmpleado, DNI, nombre, apellido, turno, fecha de ingreso, cargo, titulo, sector, telefono y sueldo.
+* Carrera: código, nombre y duración.
+* Materia: código, nombre, carga horaria, cuatrimestre y carrera.
+* Cursada: alumno, materia, turno, año/cuatrimestre y estado (cursando, aprobada, desaprobada, libre).
+* Nota: cursada, tipo de instancia (parcial, recuperatorio, final), valor y fecha.
+* Fichaje: hora de ingreso, hora de salida, fecha y idEmpleado
+* Recibo de sueldo: sueldo liquidado, mes, anio y fecha de pago.
 
 ### Reglas de negocio
 1. Cada alumno tiene un legajo único.
@@ -27,8 +27,11 @@ El sistema está destinado a una universidad. Unifica en una única base de dato
 4. Un alumno solo puede rendir el final de una materia si tiene la cursada aprobada.
 5. Un alumno no puede cursar una materia si no aprobó sus correlativas.
 6. Solo los profesores asignados a una materia pueden cargar notas en ella.
-7. Una persona tiene un único rol principal (alumno, profesor, directivo o personal).
+7. El recibo de sueldo surge del proceso de liquidacion de sueldo.
+8. No hay materias anuales, una cursada tiene un unico cuatrimestre.
+9. Todos los empleados sin importar el cargo deben fichar a la entrada y a la salida.
 
+   
 ### Procesos principales
 * Alta, baja y modificación de alumnos, profesores, directivos y personal.
 * Inscripción de alumnos a materias.
