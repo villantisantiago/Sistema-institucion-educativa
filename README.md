@@ -30,8 +30,12 @@ El sistema está destinado a una universidad. Unifica en una única base de dato
 7. El recibo de sueldo surge del proceso de liquidacion de sueldo.
 8. No hay materias anuales, una cursada tiene un unico cuatrimestre.
 9. Todos los empleados sin importar el cargo deben fichar a la entrada y a la salida.
+10. Un profesor puede dictar la misma materia varias veces por día y varios días por semana.
+11. Un profesor no puede tener 2 clases que se superpongan el mismo día y horario.
+12. Cada profesor tiene como máximo 48 horas de clases trabajadas por semana.
 
-   
+
+
 ### Procesos principales
 * Alta, baja y modificación de alumnos, profesores, directivos y personal.
 * Inscripción de alumnos a materias.
