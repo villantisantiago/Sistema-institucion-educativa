@@ -10,15 +10,14 @@ El sistema está destinado a una universidad. Unifica en una base de datos la in
 * Personal: Hay de administración, que se encarga del sector contable manejando sueldos y cuenta corriente ademas de gestionar legajos, inscripciones y carga de datos de alumnos y empleados, personal de  mantenimiento, que se ocupa de la infraestructura y las instalaciones, y personal de seguridad, que controla el acceso y la seguridad de los edificios.
 
 ### Información que se necesita almacenar
-* Alumno: legajo, DNI, nombre y apellido, fecha de nacimiento, contacto, mail, carrera, fecha de ingreso, estado.
-* Profesor: DNI, nombre, apellido, contacto, título, fecha de ingreso, materias.
-* Directivo: DNI, nombre, apellido, cargo, área.
-* Personal (mantenimiento, seguridad y administrativo): DNI, nombre y apellido, turno, fecha de ingreso, teléfono, sueldo, tipo, cargo.
-* Carrera: código, nombre, duración.
-* Materia: código, nombre, carga horaria, cuatrimestre, carrera.
-* Cursada: alumno, materia, cuatrimestre, estado (cursando, aprobada, desaprobada, libre), nota.
-* Nota: cursada, tipo de instancia (parcial, recuperatorio, final), valor, fecha.
-* Fichaje: Fecha, hora ingreso, comienzo, 
+* Alumno: legajo, DNI, nombre y apellido, fecha de nacimiento, contacto, mail, carrera, fecha de ingreso y estado.
+* Personal (mantenimiento, seguridad, directivos y docentes): idEmpleado, DNI, nombre, apellido, turno, fecha de ingreso, cargo, titulo, sector, telefono y sueldo.
+* Carrera: código, nombre y duración.
+* Materia: código, nombre, carga horaria, cuatrimestre y carrera.
+* Cursada: alumno, materia, turno, año/cuatrimestre y estado (cursando, aprobada, desaprobada, libre).
+* Nota: cursada, tipo de instancia (parcial, recuperatorio, final), valor y fecha.
+* Fichaje: hora de ingreso, hora de salida, fecha y idEmpleado
+* Recibo de sueldo: sueldo liquidado, mes, anio y fecha de pago.
 
 ### Reglas de negocio
 1. Cada alumno tiene un legajo único.
@@ -27,10 +26,14 @@ El sistema está destinado a una universidad. Unifica en una base de datos la in
 4. Un alumno solo puede rendir el final de una materia si tiene la cursada aprobada.
 5. Un alumno no puede cursar una materia si no aprobó sus correlativas.
 6. Solo los profesores asignados a una materia pueden cargar notas en ella.
-7. Una persona tiene un único rol principal (alumno, profesor, directivo o personal).
-8. Un profesor puede dictar la misma materia varias veces por día y varios días por semana.
-9. Un profesor no puede tener 2 clases que se superpongan el mismo día y horario.
-10. Cada profesor tiene como máximo 48 horas de clases trabajadas por semana.
+7. El recibo de sueldo surge del proceso de liquidacion de sueldo.
+8. No hay materias anuales, una cursada tiene un unico cuatrimestre.
+9. Todos los empleados sin importar el cargo deben fichar a la entrada y a la salida.
+10. Un profesor puede dictar la misma materia varias veces por día y varios días por semana.
+11. Un profesor no puede tener 2 clases que se superpongan el mismo día y horario.
+12. Cada profesor tiene como máximo 48 horas de clases trabajadas por semana.
+
+
 
 ### Procesos principales
 * Alta, baja y modificación de alumnos, profesores, directivos y personal.
