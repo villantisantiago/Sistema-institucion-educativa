@@ -1,7 +1,7 @@
 # Sistema-institucion-educativa
 Sistema de gestión de una institución educativa.
 
-El sistema está destinado a una universidad. Unifica en una única base de datos la información académica, administrativa y de personal, para que sea accesible y la institución se organice mejor.
+El sistema está destinado a una universidad. Unifica en una base de datos la información académica, administrativa, personal y contable, para una mejor accesibilidad y mejor organización en la institucion.
 
 ### Actores
 * Alumnos: cursan materias y reciben notas.
@@ -50,11 +50,12 @@ El sistema está destinado a una universidad. Unifica en una única base de dato
 * Asignación de turno y cargo al personal.
 * Registro diario del ingreso de directivos, profesores y personal (fichaje).
 * Generación de estadísticas: cantidad de alumnos, profesores, directivos y personal, y promedios por materia.
+* Administración de sueldos, legajos e inscripciones.
 
 ### Restricciones del sistema
 * Los DNI y los legajos no pueden repetirse.
 * Los directivos pueden consultar toda la información.
-* Los profesores solo editan notas de sus materias.
+* Los profesores solo editan notas de las materias que dictan.
 * Los alumnos solo consultan sus propios datos.
 * El turno y el cargo del personal son obligatorios, y el turno debe ser uno de los definidos en la tabla Turno.
 * El cuatrimestre de una cursada debe ser uno de los definidos en la tabla Cuatrimestre.
