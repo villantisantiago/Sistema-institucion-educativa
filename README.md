@@ -1,78 +1,85 @@
 # Sistema-institucion-educativa
+ 
 Sistema de gestión de una institución educativa.
-
-El sistema está destinado a una universidad. Unifica en una base de datos la información académica, administrativa, personal y contable, para una mejor accesibilidad y mejor organización en la institucion.
-
+ 
+El sistema está destinado a una universidad. Unifica en una base de datos la información académica, administrativa, del personal y contable, para una mejor accesibilidad y organización en la institución.
+ 
 ### Actores
-* Alumnos: cursan materias y reciben notas.
-* Profesores: dictan materias y cargan notas.
-* Directivos: gestionan y supervisan la institución, y consultan estadísticas.
-* Personal de mantenimiento: se ocupa de la infraestructura y las instalaciones.
-* Personal de seguridad: controla el acceso y la seguridad de los edificios.
-
+* **Alumnos:** se inscriben en carreras, cursan cursos y reciben notas. Pueden consultar a sus compañeros de curso.
+* **Profesores:** dictan cursos y cargan notas.
+* **Directivos:** gestionan y supervisan la institución, y consultan estadísticas.
+* **Personal:** se ocupa de la infraestructura, el acceso a los edificios y la gestión administrativa.
+Directivos y personal se registran como empleados.
+ 
 ### Información que se necesita almacenar
-* Alumno: legajo, DNI, nombre y apellido, fecha de nacimiento, teléfono, mail.
-* Inscripción a carrera: alumno, carrera, fecha de ingreso, estado.
-* Profesor: DNI, nombre y apellido, contacto, título, fecha de ingreso.
-* Directivo: DNI, nombre y apellido, teléfono, cargo, sueldo.
-* Personal (mantenimiento y seguridad): DNI, nombre y apellido, teléfono, tipo (mantenimiento o seguridad), cargo, turno, sueldo, fecha de ingreso.
-* Turno: código, nombre (mañana, tarde o noche), hora de inicio, hora de fin.
-* Carrera: código, nombre, duración.
-* Materia: código, nombre, carga horaria.
-* Plan de estudio: carrera, materia, cuatrimestre de la carrera en que se cursa.
-* Cuatrimestre: código, nombre (1er o 2do cuatrimestre).
-* Cursada: alumno, materia, año, cuatrimestre, estado (cursando, aprobada, desaprobada, libre).
-* Nota: cursada, tipo de instancia (parcial, recuperatorio, final), valor, fecha.
-* Fichaje: fecha, hora de ingreso y la persona que ingresó (directivo, profesor o personal).
-
+* **Alumno:** legajo, DNI, nombre, apellido, fecha de nacimiento, teléfono y mail.
+* **Carrera:** código, nombre y duración.
+* **Inscripción a carrera** (relación Alumno–Carrera): fecha de ingreso y estado.
+* **Materia:** código, nombre y carga horaria.
+* **Cuatrimestre:** código, nombre (1er o 2do cuatrimestre) y año.
+* **Curso:** código, día de la semana, turno y aula. Cada curso pertenece a una materia, a un profesor y a un cuatrimestre.
+* **Cursada:** código, alumno, curso y estado (cursando, aprobada, desaprobada, libre). Es la inscripción de un alumno a un curso.
+* **Nota** (entidad dependiente de Cursada): código, tipo de instancia (parcial, recuperatorio, final), valor y fecha.
+* **Profesor:** código, DNI, nombre, apellido, título, fecha de ingreso y sueldo.
+* **Empleado** (directivos y personal): código, DNI, nombre, apellido, teléfono, título, fecha de ingreso y sueldo.
+* **Sector:** código y nombre del sector al que pertenece cada empleado o profesor.
+* **Fichaje:** código, fecha, hora de ingreso y hora de salida de la persona que fichó.
+* **Liquidación:** código, mes, año y fecha de pago.
+* **Recibo de sueldo:** código, sueldo bruto y descuentos.
 ### Reglas de negocio
 1. Cada alumno tiene un legajo único.
-2. Un alumno puede estar inscripto en más de una carrera.
-3. Cada materia es dictada por al menos un profesor, y un profesor puede dictar varias materias.
-4. Las notas van de 0 a 10 y se aprueba con 4 o más.
-5. Un alumno puede tener más de una nota en una misma cursada (parcial, recuperatorio y final).
-6. Un alumno solo puede rendir el final de una materia si tiene la cursada aprobada.
-7. Un alumno no puede cursar una materia si no aprobó sus correlativas.
-8. Solo los profesores asignados a una materia pueden cargar notas en ella.
-9. Una persona tiene un único rol principal (alumno, profesor, directivo o personal).
-10. Cada empleado de mantenimiento o seguridad tiene un único turno (mañana, tarde o noche) y un único cargo.
-11. El cargo del personal debe corresponder a su tipo. Mantenimiento: electricista, plomero, jardinero, personal de limpieza. Seguridad: guardia de acceso y/o supervisor de seguridad.
-12. Cada ingreso de un directivo, profesor o empleado se registra en el fichaje con fecha y hora, y cada registro corresponde a una sola persona.
-13. Una materia puede pertenecer a más de una carrera, y una carrera tiene muchas materias. El cuatrimestre en que se cursa depende de la carrera.
-
+2. Un alumno puede estar inscripto en más de una carrera. La inscripción registra su fecha de ingreso y su estado.
+3. Una materia puede pertenecer a más de una carrera, y una carrera tiene muchas materias.
+4. Una materia puede ser correlativa de otras materias.
+5. Cada materia se dicta mediante uno o más cursos. Cada curso pertenece a una sola materia, tiene un único profesor y se dicta en un solo cuatrimestre.
+6. **Un curso se dicta una sola vez por semana**, en un único día, turno y aula.
+7. Un profesor puede dictar varios cursos.
+8. Un alumno cursa muchos cursos, y un curso tiene muchos alumnos. La inscripción de un alumno a un curso es una cursada, con su estado. Un alumno no puede inscribirse dos veces al mismo curso.
+9. Las notas van de 0 a 10 y se aprueba con 4 o más.
+10. Un alumno puede tener más de una nota en una misma cursada (parcial, recuperatorio y final). Una nota no existe sin su cursada.
+11. Un alumno solo puede rendir el final de una materia si tiene la cursada aprobada.
+12. Un alumno no puede cursar una materia si no aprobó sus correlativas.
+13. Solo el profesor asignado a un curso puede cargar notas en él.
+14. Un alumno puede ver a todos sus compañeros de un curso, mediante una vista o un stored procedure.
+15. Cada empleado y cada profesor pertenece a un sector.
+16. Cada ingreso de un empleado o profesor se registra en el fichaje con fecha, hora de ingreso y hora de salida, y cada registro corresponde a una sola persona.
+17. Cada mes se genera una liquidación, que emite recibos de sueldo. Un empleado o profesor cobra muchos recibos a lo largo del tiempo, y cada recibo corresponde a una sola persona y a una sola liquidación.
+18. El sueldo neto de un recibo es el sueldo bruto menos los descuentos. Se calcula, no se almacena.
 ### Procesos principales
-* Alta, baja y modificación de alumnos, profesores, directivos y personal.
+* Alta, baja y modificación de alumnos, profesores y empleados.
 * Inscripción de alumnos a carreras.
-* Inscripción de alumnos a materias (cursada).
+* Creación de cursos y asignación de profesores, día, turno y aula.
+* Inscripción de alumnos a cursos (cursada).
 * Carga y modificación de notas por parte de los profesores.
-* Consulta del historial académico de un alumno.
-* Asignación de profesores a materias.
-* Asignación de turno y cargo al personal.
-* Registro diario del ingreso de directivos, profesores y personal (fichaje).
-* Generación de estadísticas: cantidad de alumnos, profesores, directivos y personal, y promedios por materia.
-* Administración de sueldos, legajos e inscripciones.
-
+* Consulta del historial académico de un alumno y de sus compañeros de curso.
+* Asignación de empleados y profesores a sectores.
+* Registro del ingreso y la salida del personal (fichaje).
+* Liquidación mensual de sueldos y emisión de recibos.
+* Generación de estadísticas: cantidad de alumnos, profesores y empleados, y promedios por materia.
 ### Restricciones del sistema
 * Los DNI y los legajos no pueden repetirse.
 * Los directivos pueden consultar toda la información.
-* Los profesores solo editan notas de las materias que dictan.
-* Los alumnos solo consultan sus propios datos.
-* El turno y el cargo del personal son obligatorios, y el turno debe ser uno de los definidos en la tabla Turno.
-* El cuatrimestre de una cursada debe ser uno de los definidos en la tabla Cuatrimestre.
+* Los profesores solo editan notas de los cursos que dictan.
+* Los alumnos solo consultan sus propios datos y la lista de compañeros de sus cursos.
+* El cuatrimestre de un curso debe ser uno de los definidos en la tabla Cuatrimestre.
+* Cada curso tiene un único día, turno y aula.
 * Cada registro de fichaje debe tener fecha, hora de ingreso y una única persona asociada.
+* Cada recibo de sueldo pertenece a una única liquidación y a una única persona.
 * Debe mantenerse la integridad referencial entre todas las tablas.
-
 ### Cardinalidad
 | Entidad A | Relación | Entidad B | Cardinalidad | Implementación |
 |---|---|---|---|---|
-| Carrera | tiene | Materia | N:M | Tabla **Plan_Estudio** (`id_carrera`, `id_materia`, `cuatrimestre`) |
-| Alumno | se inscribe en | Carrera | N:M | Tabla **Inscripcion_Carrera** (`legajo`, `id_carrera`, `fecha_ingreso`, `estado`) |
-| Alumno | cursa | Materia | N:M | Tabla **Cursada** (`id_cursada`, `legajo`, `id_materia`, `id_cuatrimestre`, `anio`, `estado`) |
-| Cuatrimestre | se cursa en | Cursada | 1:N | `id_cuatrimestre` como FK en Cursada |
-| Cursada | tiene | Nota | 1:N | `id_cursada` como FK en Nota |
-| Profesor | dicta | Materia | N:M | Tabla **Dicta** (`id_profesor`, `id_materia`) |
-| Materia | es correlativa de | Materia | N:M | Tabla **Correlativa** (`id_materia`, `id_materia_correlativa`) |
-| Turno | se asigna a | Personal | 1:N | `id_turno` como FK en Personal |
-| Directivo | ficha | Fichaje | 1:N | `id_directivo` como FK en Fichaje |
+| Carrera | tiene | Materia | N:M | Tabla intermedia (`id_carrera`, `id_materia`) |
+| Alumno | se inscribe en | Carrera | N:M | Tabla intermedia (`legajo`, `id_carrera`, `fecha_ingreso`, `estado`) |
+| Materia | es correlativa de | Materia | N:M | Tabla intermedia (`id_materia`, `id_materia_correlativa`) |
+| Materia | se dicta en | Curso | 1:N | `id_materia` como FK en Curso |
+| Profesor | dicta | Curso | 1:N | `id_profesor` como FK en Curso |
+| Cuatrimestre | se dicta en | Curso | 1:N | `id_cuatrimestre` como FK en Curso |
+| Alumno | realiza | Cursada | 1:N | `legajo` como FK en Cursada |
+| Curso | se cursa en | Cursada | 1:N | `id_curso` como FK en Cursada |
+| Cursada | obtiene | Nota | 1:N (Nota es dependiente) | `id_cursada` como FK en Nota |
+| Sector | pertenece | Empleado / Profesor | 1:N | `id_sector` como FK |
+| Empleado | ficha | Fichaje | 1:N | `id_empleado` como FK en Fichaje |
 | Profesor | ficha | Fichaje | 1:N | `id_profesor` como FK en Fichaje |
-| Personal | ficha | Fichaje | 1:N | `id_personal` como FK en Fichaje |
+| Liquidación | genera | Recibo de sueldo | 1:N | `id_liquidacion` como FK en Recibo_Sueldo |
+| Empleado / Profesor | cobra | Recibo de sueldo | 1:N | `id_empleado` o `id_profesor` como FK en Recibo_Sueldo |
