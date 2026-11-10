@@ -4,31 +4,31 @@ GO
 CREATE TABLE Administrativo.Sector (
     id_sector INT IDENTITY(1,1) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL,
-    CONSTRAINT UQ_Sector_nombre UNIQUE (nombre)
+    CONSTRAINT Sector_nombre UNIQUE (nombre)
 );
 
 CREATE TABLE Academico.Carrera (
     id_carrera INT IDENTITY(1,1) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL,
     duracion INT NOT NULL,
-    CONSTRAINT UQ_Carrera_nombre UNIQUE (nombre),
-    CONSTRAINT CK_Carrera_duracion CHECK (duracion > 0)
+    CONSTRAINT Carrera_nombre UNIQUE (nombre),
+    CONSTRAINT Carrera_duracion CHECK (duracion > 0)
 );
 
 CREATE TABLE Academico.Materia (
     id_materia INT IDENTITY(1,1) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL,
     carga_horaria INT NOT NULL,
-    CONSTRAINT UQ_Materia_nombre UNIQUE (nombre),
-    CONSTRAINT CK_Materia_carga_horaria CHECK (carga_horaria > 0)
+    CONSTRAINT Materia_nombre UNIQUE (nombre),
+    CONSTRAINT Materia_carga_horaria CHECK (carga_horaria > 0)
 );
 
 CREATE TABLE Academico.Cuatrimestre (
     id_cuatrimestre INT IDENTITY(1,1) PRIMARY KEY,
     anio INT NOT NULL,
     cuatrimestre NVARCHAR(20) NOT NULL CHECK (cuatrimestre IN ('1', '2')),
-    CONSTRAINT UQ_Cuatrimestre_periodo UNIQUE (anio, cuatrimestre),
-    CONSTRAINT CK_Cuatrimestre_anio CHECK (anio BETWEEN 2000 AND 2100)
+    CONSTRAINT Cuatrimestre_periodo UNIQUE (anio, cuatrimestre),
+    CONSTRAINT Cuatrimestre_anio CHECK (anio BETWEEN 2000 AND 2100)
 );
 
 CREATE TABLE Administrativo.Liquidacion (
@@ -36,8 +36,8 @@ CREATE TABLE Administrativo.Liquidacion (
     fecha_pago DATE NOT NULL,
     mes INT NOT NULL CHECK (mes >= 1 AND mes <= 12),
     anio INT NOT NULL,
-    CONSTRAINT UQ_Liquidacion_periodo UNIQUE (mes, anio),
-    CONSTRAINT CK_Liquidacion_anio CHECK (anio BETWEEN 2000 AND 2100)
+    CONSTRAINT Liquidacion_periodo UNIQUE (mes, anio),
+    CONSTRAINT Liquidacion_anio CHECK (anio BETWEEN 2000 AND 2100)
 );
 
 CREATE TABLE Academico.Alumno (
@@ -47,9 +47,9 @@ CREATE TABLE Academico.Alumno (
     fecha_nacimiento DATE NOT NULL,
     telefono VARCHAR(15) NOT NULL,
     correo_electronico NVARCHAR(100) NOT NULL,
-    CONSTRAINT UQ_Alumno_correo UNIQUE (correo_electronico),
-    CONSTRAINT CK_Alumno_fecha_nacimiento CHECK (fecha_nacimiento < GETDATE()),
-    CONSTRAINT CK_Alumno_correo CHECK (correo_electronico LIKE '%_@_%._%')
+    CONSTRAINT Alumno_correo UNIQUE (correo_electronico),
+    CONSTRAINT Alumno_fecha_nacimiento CHECK (fecha_nacimiento < GETDATE()),
+    CONSTRAINT Alumno_correo CHECK (correo_electronico LIKE '%_@_%._%')
 );
 
 CREATE TABLE Administrativo.Profesor (
@@ -61,9 +61,9 @@ CREATE TABLE Administrativo.Profesor (
     titulo NVARCHAR(100) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
     correo_electronico NVARCHAR(100) NOT NULL,
-    CONSTRAINT UQ_Profesor_dni UNIQUE (dni),
-    CONSTRAINT UQ_Profesor_correo UNIQUE (correo_electronico),
-    CONSTRAINT CK_Profesor_correo CHECK (correo_electronico LIKE '%_@_%._%')
+    CONSTRAINT Profesor_dni UNIQUE (dni),
+    CONSTRAINT Profesor_correo UNIQUE (correo_electronico),
+    CONSTRAINT Profesor_correo CHECK (correo_electronico LIKE '%_@_%._%')
 );
 
 CREATE TABLE Administrativo.Empleado (
@@ -76,9 +76,9 @@ CREATE TABLE Administrativo.Empleado (
     telefono VARCHAR(15) NOT NULL,
     correo_electronico NVARCHAR(100) NOT NULL,
     titulo NVARCHAR(100) NOT NULL,
-    CONSTRAINT UQ_Empleado_dni UNIQUE (dni),
-    CONSTRAINT UQ_Empleado_correo UNIQUE (correo_electronico),
-    CONSTRAINT CK_Empleado_correo CHECK (correo_electronico LIKE '%_@_%._%')
+    CONSTRAINT Empleado_dni UNIQUE (dni),
+    CONSTRAINT Empleado_correo UNIQUE (correo_electronico),
+    CONSTRAINT Empleado_correo CHECK (correo_electronico LIKE '%_@_%._%')
 );
 
 CREATE TABLE Academico.Carrera_Materia (
@@ -91,7 +91,7 @@ CREATE TABLE Academico.Correlativa (
     id_materia INT NOT NULL FOREIGN KEY REFERENCES Academico.Materia(id_materia),
     id_correlativa INT NOT NULL FOREIGN KEY REFERENCES Academico.Materia(id_materia),
     PRIMARY KEY (id_materia, id_correlativa),
-    CONSTRAINT CK_Correlativa_distinta CHECK (id_materia <> id_correlativa)
+    CONSTRAINT Correlativa_distinta CHECK (id_materia <> id_correlativa)
 );
 
 CREATE TABLE Academico.Inscripcion (
@@ -119,7 +119,7 @@ CREATE TABLE Academico.Cursada (
     legajo INT NOT NULL FOREIGN KEY REFERENCES Academico.Alumno(legajo),
     id_curso INT NOT NULL FOREIGN KEY REFERENCES Academico.Curso(id_curso),
     estado NVARCHAR(20) NOT NULL CHECK (estado IN ('Aprobado', 'Desaprobado', 'Cursando', 'Final')),
-    CONSTRAINT restriccion_cursada UNIQUE (legajo, id_curso) --para que un mismo alumno no se pueda anotar en la misma cursada que ya esta
+    CONSTRAINT restriccion_cursada UNIQUE (legajo, id_curso) 
 );
 
 CREATE TABLE Academico.Nota (
@@ -137,8 +137,8 @@ CREATE TABLE Administrativo.Fichaje (
     fecha DATE NOT NULL,
     hora_ingreso TIME NOT NULL,
     hora_salida TIME NOT NULL,
-    CONSTRAINT CK_Fichaje_Persona CHECK ((id_profesor IS NOT NULL AND id_empleado IS NULL) OR (id_profesor IS NULL AND id_empleado IS NOT NULL)),
-    CONSTRAINT CK_Fichaje_horas CHECK (hora_salida > hora_ingreso)
+    CONSTRAINT restriccion_Fichaje_Persona CHECK ((id_profesor IS NOT NULL AND id_empleado IS NULL) OR (id_profesor IS NULL AND id_empleado IS NOT NULL)),
+    CONSTRAINT restriccion_Fichaje_horas CHECK (hora_salida > hora_ingreso)
 );
 
 CREATE TABLE Administrativo.Recibo_Sueldo (
@@ -150,8 +150,8 @@ CREATE TABLE Administrativo.Recibo_Sueldo (
     descuentos DECIMAL(10, 2) NOT NULL,
     fecha DATE NOT NULL,
     monto DECIMAL(10, 2) NOT NULL,
-    CONSTRAINT CK_Recibo_Persona CHECK ((id_profesor IS NOT NULL AND id_empleado IS NULL) OR (id_profesor IS NULL AND id_empleado IS NOT NULL)),
-    CONSTRAINT CK_Recibo_bruto CHECK (sueldo_bruto > 0),
-    CONSTRAINT CK_Recibo_descuentos CHECK (descuentos >= 0 AND descuentos <= sueldo_bruto)
+    CONSTRAINT restriccion_Recibo_Persona CHECK ((id_profesor IS NOT NULL AND id_empleado IS NULL) OR (id_profesor IS NULL AND id_empleado IS NOT NULL)),
+    CONSTRAINT restriccion_Recibo_bruto CHECK (sueldo_bruto > 0),
+    CONSTRAINT restriccion_Recibo_descuentos CHECK (descuentos >= 0 AND descuentos <= sueldo_bruto)
 );
 GO
