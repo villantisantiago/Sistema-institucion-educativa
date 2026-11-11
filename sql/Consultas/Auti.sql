@@ -12,9 +12,6 @@ INNER JOIN Academico.Materia m2 ON c.id_correlativa = m2.id_materia
 GO
 
 
-
-
-
 -- Mostrar los cursos que tienen más de cierta cantidad de alumnos inscriptos.
 CREATE OR ALTER PROCEDURE Academico.spCursosConMasAlumnos @cantidad INT = 0
 AS
