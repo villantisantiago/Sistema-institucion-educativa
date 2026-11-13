@@ -54,7 +54,6 @@ CREATE TABLE Academico.Alumno (
 
 CREATE TABLE Administrativo.Profesor (
     id_profesor INT IDENTITY(1,1) PRIMARY KEY,
-    id_sector INT FOREIGN KEY REFERENCES Administrativo.Sector(id_sector),
     dni VARCHAR(20) NOT NULL,
     nombre NVARCHAR(50) NOT NULL,
     apellido NVARCHAR(50) NOT NULL,
