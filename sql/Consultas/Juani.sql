@@ -1,24 +1,10 @@
 USE InstitucionEducativa;
 GO
 
-SELECT
-    c.id_curso,
-    m.nombre AS materia,
-    p.apellido AS apellido_profesor,
-    c.dia,
-    c.turno,
-    c.aula,
-    cu.cuatrimestre,
-    cu.anio
-FROM Academico.Curso AS c
-JOIN Academico.Materia AS m ON c.id_materia = m.id_materia
-JOIN Administrativo.Profesor AS p ON c.id_profesor = p.id_profesor
-JOIN Academico.Cuatrimestre AS cu ON c.id_cuatrimestre = cu.id_cuatrimestre
-ORDER BY cu.anio, cu.cuatrimestre, c.dia, c.turno;
 
 
 -- Mostrar los alumnos inscriptos en un curso
-DECLARE @id_curso INT = 1; -- se cambia dependiendo del curso 
+DECLARE @id_curso INT = 1; 
 SELECT
     a.legajo,
     a.apellido,

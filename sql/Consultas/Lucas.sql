@@ -28,7 +28,6 @@ HAVING AVG(CAST(n.valor AS DECIMAL(10, 4))) > (SELECT AVG(CAST(valor AS DECIMAL(
 ORDER BY promedio DESC;
 
 --Profesores sin ningún curso asignado
-
 SELECT p.id_profesor, p.apellido, p.nombre
 FROM Administrativo.Profesor p
 WHERE NOT EXISTS (
