@@ -12,16 +12,6 @@ GROUP BY p.id_profesor, p.apellido, p.nombre
 GO
 
 
--- Oferta completa de cursos con materia, profesor, aula, turno y cuatrimestre.
-CREATE OR ALTER VIEW Academico.vOferta_cursos
-AS 
-SELECT c.id_curso, m.nombre AS materia, p.apellido AS apellido_profesor, c.dia, c.turno, c.aula, cu.cuatrimestre, cu.anio
-FROM Academico.Curso c INNER JOIN Academico.Materia m ON c.id_materia = m.id_materia
-INNER JOIN Administrativo.Profesor p ON c.id_profesor = p.id_profesor
-INNER JOIN Academico.Cuatrimestre cu ON c.id_cuatrimestre = cu.id_cuatrimestre
-GO
-
-
 -- Total neto abonado en cada liquidación mensual.
 CREATE OR ALTER VIEW Administrativo.vTotal_liquidaciones
 AS 
