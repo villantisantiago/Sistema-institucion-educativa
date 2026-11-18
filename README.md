@@ -1,16 +1,58 @@
-# Sistema-institucion-educativa
- 
+# TRABAJO PRÁCTICO
+## Sistema de gestión de una institución educativa
+**Ingeniería de Datos I**
+
+**Grupo Nro: 3**
+
+**Profesor:** Feichubuinm Alejandro
+**Cuatrimestre:** 2 – **Año:** 2026
+
+---
+
+## Índice
+1. Carátula
+2. Integrantes
+3. Descripción del sistema
+4. Alcance del sistema
+5. Reglas de negocio
+
+---
+
+## 1. Carátula
+**Trabajo Práctico Integrador – Base de Datos**
+Sistema de gestión de una institución educativa
+Materia: Ingeniería de Datos I
+Grupo Nro: 3
+Profesor: Feichubuinm Alejandro
+Cuatrimestre: 2 – Año: 2026
+
+## 2. Integrantes
+| Integrante | Legajo |
+|---|---|
+| Santiago Villanti | LU1210586 |
+| Juan Ignacio Alvarez | LU1221272 |
+| Lucas Flores | LU1218754 |
+| Bautista Viñas | LU1212884 |
+
+## 3. Descripción del sistema
 Sistema de gestión de una institución educativa.
- 
+
 El sistema está destinado a una universidad. Unifica en una base de datos la información académica, administrativa, del personal y contable, para una mejor accesibilidad y organización en la institución.
- 
+
+La base de datos se implementó en SQL Server y se organiza en dos esquemas:
+* **Academico:** alumnos, carreras, materias, cuatrimestres, cursos, cursadas y notas.
+* **Administrativo:** profesores, empleados, sectores, fichajes, liquidaciones y recibos de sueldo.
+
+## 4. Alcance del sistema (o contexto de la aplicación)
+
 ### Actores
 * **Alumnos:** se inscriben en carreras, cursan cursos y reciben notas. Pueden consultar a sus compañeros de curso.
 * **Profesores:** dictan cursos y cargan notas.
 * **Directivos:** gestionan y supervisan la institución, y consultan estadísticas.
 * **Personal:** se ocupa de la infraestructura, el acceso a los edificios y la gestión administrativa.
+
 Directivos y personal se registran como empleados.
- 
+
 ### Información que se necesita almacenar
 * **Alumno:** legajo, DNI, nombre, apellido, fecha de nacimiento, teléfono y mail.
 * **Carrera:** código, nombre y duración.
@@ -26,7 +68,31 @@ Directivos y personal se registran como empleados.
 * **Fichaje:** código, fecha, hora de ingreso y hora de salida de la persona que fichó.
 * **Liquidación:** código, mes, año y fecha de pago.
 * **Recibo de sueldo:** código, sueldo bruto y descuentos.
-### Reglas de negocio
+
+### Procesos principales
+* Alta, baja y modificación de alumnos, profesores y empleados.
+* Inscripción de alumnos a carreras.
+* Creación de cursos y asignación de profesores, día, turno y aula.
+* Inscripción de alumnos a cursos (cursada).
+* Carga y modificación de notas por parte de los profesores.
+* Consulta del historial académico de un alumno y de sus compañeros de curso.
+* Asignación de empleados y profesores a sectores.
+* Registro del ingreso y la salida del personal (fichaje).
+* Liquidación mensual de sueldos y emisión de recibos.
+* Generación de estadísticas: cantidad de alumnos, profesores y empleados, y promedios por materia.
+
+### Restricciones del sistema
+* Los DNI y los legajos no pueden repetirse.
+* Los directivos pueden consultar toda la información.
+* Los profesores solo editan notas de los cursos que dictan.
+* Los alumnos solo consultan sus propios datos y la lista de compañeros de sus cursos.
+* El cuatrimestre de un curso debe ser uno de los definidos en la tabla Cuatrimestre.
+* Cada curso tiene un único día, turno y aula.
+* Cada registro de fichaje debe tener fecha, hora de ingreso y una única persona asociada.
+* Cada recibo de sueldo pertenece a una única liquidación y a una única persona.
+* Debe mantenerse la integridad referencial entre todas las tablas.
+
+## 5. Reglas de negocio
 1. Cada alumno tiene un legajo único.
 2. Un alumno puede estar inscripto en más de una carrera. La inscripción registra su fecha de ingreso y su estado.
 3. Una materia puede pertenecer a más de una carrera, y una carrera tiene muchas materias.
@@ -45,41 +111,4 @@ Directivos y personal se registran como empleados.
 16. Cada ingreso de un empleado o profesor se registra en el fichaje con fecha, hora de ingreso y hora de salida, y cada registro corresponde a una sola persona.
 17. Cada mes se genera una liquidación, que emite recibos de sueldo. Un empleado o profesor cobra muchos recibos a lo largo del tiempo, y cada recibo corresponde a una sola persona y a una sola liquidación.
 18. El sueldo neto de un recibo es el sueldo bruto menos los descuentos. Se calcula, no se almacena.
-### Procesos principales
-* Alta, baja y modificación de alumnos, profesores y empleados.
-* Inscripción de alumnos a carreras.
-* Creación de cursos y asignación de profesores, día, turno y aula.
-* Inscripción de alumnos a cursos (cursada).
-* Carga y modificación de notas por parte de los profesores.
-* Consulta del historial académico de un alumno y de sus compañeros de curso.
-* Asignación de empleados y profesores a sectores.
-* Registro del ingreso y la salida del personal (fichaje).
-* Liquidación mensual de sueldos y emisión de recibos.
-* Generación de estadísticas: cantidad de alumnos, profesores y empleados, y promedios por materia.
-### Restricciones del sistema
-* Los DNI y los legajos no pueden repetirse.
-* Los directivos pueden consultar toda la información.
-* Los profesores solo editan notas de los cursos que dictan.
-* Los alumnos solo consultan sus propios datos y la lista de compañeros de sus cursos.
-* El cuatrimestre de un curso debe ser uno de los definidos en la tabla Cuatrimestre.
-* Cada curso tiene un único día, turno y aula.
-* Cada registro de fichaje debe tener fecha, hora de ingreso y una única persona asociada.
-* Cada recibo de sueldo pertenece a una única liquidación y a una única persona.
-* Debe mantenerse la integridad referencial entre todas las tablas.
-### Cardinalidad
-| Entidad A | Relación | Entidad B | Cardinalidad | Implementación |
-|---|---|---|---|---|
-| Carrera | tiene | Materia | N:M | Tabla intermedia (`id_carrera`, `id_materia`) |
-| Alumno | se inscribe en | Carrera | N:M | Tabla intermedia (`legajo`, `id_carrera`, `fecha_ingreso`, `estado`) |
-| Materia | es correlativa de | Materia | N:M | Tabla intermedia (`id_materia`, `id_materia_correlativa`) |
-| Materia | se dicta en | Curso | 1:N | `id_materia` como FK en Curso |
-| Profesor | dicta | Curso | 1:N | `id_profesor` como FK en Curso |
-| Cuatrimestre | se dicta en | Curso | 1:N | `id_cuatrimestre` como FK en Curso |
-| Alumno | realiza | Cursada | 1:N | `legajo` como FK en Cursada |
-| Curso | se cursa en | Cursada | 1:N | `id_curso` como FK en Cursada |
-| Cursada | obtiene | Nota | 1:N (Nota es dependiente) | `id_cursada` como FK en Nota |
-| Sector | pertenece | Empleado / Profesor | 1:N | `id_sector` como FK |
-| Empleado | ficha | Fichaje | 1:N | `id_empleado` como FK en Fichaje |
-| Profesor | ficha | Fichaje | 1:N | `id_profesor` como FK en Fichaje |
-| Liquidación | genera | Recibo de sueldo | 1:N | `id_liquidacion` como FK en Recibo_Sueldo |
-| Empleado / Profesor | cobra | Recibo de sueldo | 1:N | `id_empleado` o `id_profesor` como FK en Recibo_Sueldo |
+

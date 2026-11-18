@@ -1,8 +1,6 @@
 USE institucionEducativa;
 GO
 
-
-
 -- Contar cuántos cursos dicta cada profesor, incluyendo a los que no tienen ninguno.
 CREATE OR ALTER VIEW Academico.vCursos_por_profesor
 AS 
@@ -37,8 +35,6 @@ SELECT s.id_sector, s.nombre AS sector, COUNT(e.id_empleado) AS cantidad_emplead
 FROM Administrativo.Sector s LEFT JOIN Administrativo.Empleado e ON e.id_sector = s.id_sector
 GROUP BY s.id_sector, s.nombre
 GO
-
-
 
 -- Alumnos inscriptos en cada curso
 CREATE VIEW Academico.Vista_Alumnos_Por_Curso AS
