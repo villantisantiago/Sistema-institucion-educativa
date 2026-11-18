@@ -66,20 +66,3 @@ Directivos y personal se registran como empleados.
 * Cada registro de fichaje debe tener fecha, hora de ingreso y una única persona asociada.
 * Cada recibo de sueldo pertenece a una única liquidación y a una única persona.
 * Debe mantenerse la integridad referencial entre todas las tablas.
-### Cardinalidad
-| Entidad A | Relación | Entidad B | Cardinalidad | Implementación |
-|---|---|---|---|---|
-| Carrera | tiene | Materia | N:M | Tabla intermedia (`id_carrera`, `id_materia`) |
-| Alumno | se inscribe en | Carrera | N:M | Tabla intermedia (`legajo`, `id_carrera`, `fecha_ingreso`, `estado`) |
-| Materia | es correlativa de | Materia | N:M | Tabla intermedia (`id_materia`, `id_materia_correlativa`) |
-| Materia | se dicta en | Curso | 1:N | `id_materia` como FK en Curso |
-| Profesor | dicta | Curso | 1:N | `id_profesor` como FK en Curso |
-| Cuatrimestre | se dicta en | Curso | 1:N | `id_cuatrimestre` como FK en Curso |
-| Alumno | realiza | Cursada | 1:N | `legajo` como FK en Cursada |
-| Curso | se cursa en | Cursada | 1:N | `id_curso` como FK en Cursada |
-| Cursada | obtiene | Nota | 1:N (Nota es dependiente) | `id_cursada` como FK en Nota |
-| Sector | pertenece | Empleado / Profesor | 1:N | `id_sector` como FK |
-| Empleado | ficha | Fichaje | 1:N | `id_empleado` como FK en Fichaje |
-| Profesor | ficha | Fichaje | 1:N | `id_profesor` como FK en Fichaje |
-| Liquidación | genera | Recibo de sueldo | 1:N | `id_liquidacion` como FK en Recibo_Sueldo |
-| Empleado / Profesor | cobra | Recibo de sueldo | 1:N | `id_empleado` o `id_profesor` como FK en Recibo_Sueldo |
