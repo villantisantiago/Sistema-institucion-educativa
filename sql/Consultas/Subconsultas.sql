@@ -24,11 +24,8 @@ GO
     JOIN Administrativo.Recibo_Sueldo AS r ON r.id_empleado = e.id_empleado
     GROUP BY e.id_empleado, e.apellido, e.nombre
 )
-SELECT
-    id_empleado,
-    apellido,
-    nombre,
-    sueldo_neto_promedio
+
+SELECT id_empleado, apellido, nombre, sueldo_neto_promedio
 FROM SueldoPromedioPorEmpleado
 WHERE sueldo_neto_promedio > (
     SELECT AVG(sueldo_neto_promedio)

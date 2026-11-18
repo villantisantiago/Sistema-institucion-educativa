@@ -12,9 +12,7 @@ GO
 
 
 -- Contar la cantidad de cursadas en cada estado
-SELECT
-    estado,
-    COUNT(*) AS cantidad_cursadas
+SELECT estado, COUNT(*) AS cantidad_cursadas
 FROM Academico.Cursada
 GROUP BY estado
 ORDER BY estado;
