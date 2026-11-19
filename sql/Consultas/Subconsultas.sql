@@ -10,7 +10,7 @@ WHERE m.id_materia NOT IN(
 GO
 
 -- Mostrar empleados cuyo sueldo neto promedio supera el promedio de los empleados
-;WITH SueldoPromedioPorEmpleado AS (
+WITH SueldoPromedioPorEmpleado AS (
     SELECT
         e.id_empleado,
         e.apellido,
