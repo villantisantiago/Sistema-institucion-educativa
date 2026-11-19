@@ -9,15 +9,6 @@
 
 ---
 
-## Índice
-1. Carátula
-2. Integrantes
-3. Descripción del sistema
-4. Alcance del sistema
-5. Reglas de negocio
-
----
-
 ## 1. Carátula
 **Trabajo Práctico Integrador – Base de Datos**
 Sistema de gestión de una institución educativa
