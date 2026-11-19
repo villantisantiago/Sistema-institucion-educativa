@@ -14,7 +14,7 @@ BEGIN
 
     RETURN @promedio
 END
-GO;
+GO
 
 
 -- Calcular el sueldo neto a cobrar de un recibo descontando las retenciones al sueldo bruto.

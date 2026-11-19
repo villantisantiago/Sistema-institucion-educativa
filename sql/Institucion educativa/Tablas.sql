@@ -49,7 +49,7 @@ CREATE TABLE Academico.Alumno (
     correo_electronico NVARCHAR(100) NOT NULL,
     CONSTRAINT Alumno_correo UNIQUE (correo_electronico),
     CONSTRAINT Alumno_fecha_nacimiento CHECK (fecha_nacimiento < GETDATE()),
-    CONSTRAINT Alumno_correo CHECK (correo_electronico LIKE '%_@_%._%')
+    CONSTRAINT Alumno_correo_formato CHECK (correo_electronico LIKE '%_@_%._%')
 );
 
 CREATE TABLE Administrativo.Profesor (
@@ -60,9 +60,10 @@ CREATE TABLE Administrativo.Profesor (
     titulo NVARCHAR(100) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
     correo_electronico NVARCHAR(100) NOT NULL,
+    sueldo DECIMAL(10, 2) NOT NULL DEFAULT 600000.00,
     CONSTRAINT Profesor_dni UNIQUE (dni),
     CONSTRAINT Profesor_correo UNIQUE (correo_electronico),
-    CONSTRAINT Profesor_correo CHECK (correo_electronico LIKE '%_@_%._%')
+    CONSTRAINT Profesor_correo_formato CHECK (correo_electronico LIKE '%_@_%._%')
 );
 
 CREATE TABLE Administrativo.Empleado (
@@ -75,9 +76,10 @@ CREATE TABLE Administrativo.Empleado (
     telefono VARCHAR(15) NOT NULL,
     correo_electronico NVARCHAR(100) NOT NULL,
     titulo NVARCHAR(100) NOT NULL,
+    sueldo DECIMAL(10, 2) NOT NULL DEFAULT 450000.00,
     CONSTRAINT Empleado_dni UNIQUE (dni),
     CONSTRAINT Empleado_correo UNIQUE (correo_electronico),
-    CONSTRAINT Empleado_correo CHECK (correo_electronico LIKE '%_@_%._%')
+    CONSTRAINT Empleado_correo_formato CHECK (correo_electronico LIKE '%_@_%._%')
 );
 
 CREATE TABLE Academico.Carrera_Materia (

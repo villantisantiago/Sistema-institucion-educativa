@@ -48,8 +48,9 @@ GO
 
 
 INSERT INTO Academico.Cuatrimestre (anio, cuatrimestre) VALUES
+(2022, '1'), (2022, '2'), (2023, '1'), (2023, '2'), 
 (2024, '1'), (2024, '2'), (2025, '1'), (2025, '2'), 
-(2026, '1'), (2026, '2'), (2027, '1'), (2027, '2'), ;
+(2026, '1'), (2026, '2');
 GO
 
 
@@ -167,13 +168,13 @@ GO
 
 INSERT INTO Academico.Curso (id_materia, id_profesor, id_cuatrimestre, turno, dia, aula) VALUES
 (1, 1, 9, 'Noche', 'Lunes', 'Aula 101'),
-(1, 2, 9, 'Manana', 'Martes', 'Aula 102'),
-(2, 2, 9, 'Noche', 'Miercoles', 'Aula 103'),
+(1, 2, 9, 'Mañana', 'Martes', 'Aula 102'),
+(2, 2, 9, 'Noche', 'Miércoles', 'Aula 103'),
 (4, 3, 9, 'Noche', 'Jueves', 'Aula 104'),
 (5, 3, 9, 'Tarde', 'Viernes', 'Aula 105'),
 (6, 4, 9, 'Noche', 'Lunes', 'Aula 201'),
 (7, 9, 9, 'Noche', 'Martes', 'Aula 202'),
-(8, 5, 9, 'Manana', 'Miercoles', 'Aula 203'),
+(8, 5, 9, 'Mañana', 'Miércoles', 'Aula 203'),
 (9, 6, 9, 'Tarde', 'Jueves', 'Aula 204'),
 (11, 8, 9, 'Noche', 'Viernes', 'Aula 205');
 GO
