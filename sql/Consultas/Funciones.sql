@@ -17,15 +17,15 @@ END
 GO;
 
 
--- Calcular la cantidad total de materias que tiene aprobadas un alumno.
-CREATE OR ALTER FUNCTION Academico.fnMaterias_aprobadas_alumno (@legajo INT)
-RETURNS INT
+-- Calcular el sueldo neto a cobrar de un recibo descontando las retenciones al sueldo bruto.
+CREATE OR ALTER FUNCTION Administrativo.fnSueldo_neto_recibo (@id_recibo INT)
+RETURNS DECIMAL(10, 2)
 AS
 BEGIN
-    DECLARE @cantidad INT;
-    SELECT @cantidad = COUNT(DISTINCT cur.id_materia)
-    FROM Academico.Cursada cd INNER JOIN Academico.Curso cur ON cd.id_curso = cur.id_curso
-    WHERE cd.legajo = @legajo AND cd.estado = 'Aprobado';
-    RETURN ISNULL(@cantidad, 0);
+    DECLARE @neto DECIMAL(10, 2);
+    SELECT @neto = (r.sueldo_bruto - r.descuentos)
+    FROM Administrativo.Recibo_Sueldo r
+    WHERE r.id_recibo = @id_recibo;
+    RETURN ISNULL(@neto, 0);
 END;
 GO
