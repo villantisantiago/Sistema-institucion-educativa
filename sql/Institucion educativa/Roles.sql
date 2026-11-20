@@ -10,7 +10,7 @@ GO
 
 
 -- Alumno: solo puede consultar vistas públicas de información académica
-GRANT SELECT ON Academico.vOferta_cursos TO Rol_Alumno;
+GRANT SELECT ON Academico.Vista_Cursos_Detalle TO Rol_Alumno;
 GRANT SELECT ON Academico.vPlan_estudios_carreras TO Rol_Alumno;
 GRANT SELECT ON Academico.Vista_Alumnos_Por_Curso TO Rol_Alumno;
 DENY SELECT ON SCHEMA::Administrativo TO Rol_Alumno;

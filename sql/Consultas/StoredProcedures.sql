@@ -140,7 +140,7 @@ BEGIN
     SET @id_liquidacion = SCOPE_IDENTITY();
     INSERT INTO Administrativo.Recibo_Sueldo(id_empleado, id_liquidacion, id_profesor, sueldo_bruto, descuentos, fecha, monto)
     SELECT e.id_empleado, @id_liquidacion, NULL, e.sueldo, ROUND(e.sueldo * 0.17, 2), CAST(GETDATE() AS DATE), ROUND(e.sueldo - (e.sueldo * 0.17), 2)
-    FROM Administrativo.Empleado;
+    FROM Administrativo.Empleado e;
     INSERT INTO Administrativo.Recibo_Sueldo (id_liquidacion, id_empleado, id_profesor, sueldo_bruto, descuentos, fecha, monto)
     SELECT @id_liquidacion, NULL, p.id_profesor, p.sueldo, ROUND(p.sueldo * 0.17, 2), CAST(GETDATE() AS DATE), ROUND(p.sueldo - (p.sueldo * 0.17), 2) 
     FROM Administrativo.Profesor p;
